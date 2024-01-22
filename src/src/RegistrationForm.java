@@ -1,5 +1,3 @@
-package SigninUI;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -7,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.sql.*;
 
 import Login.User;
-import LoginUI.LoginForm;
 
 public class RegistrationForm extends JDialog{
     private JTextField tfName;
@@ -48,10 +45,9 @@ public class RegistrationForm extends JDialog{
             public void actionPerformed(ActionEvent e) {
                 dispose();
                 LoginForm loginForm = new LoginForm(null);
-                //loginForm.setVisible(true);
-                /*loginForm.pack();
-                loginForm.setLocationRelativeTo(null);*/
-                //dispose();
+                loginForm.pack();
+                loginForm.setLocationRelativeTo(null);
+
             }
         });
 
@@ -85,6 +81,9 @@ public class RegistrationForm extends JDialog{
         user = addUserToDatabase(name, email, phone, address, password);
         if (user != null) {
             dispose();
+            LoginForm loginForm = new LoginForm(null);
+            loginForm.pack();
+            loginForm.setLocationRelativeTo(null);
         }else {
             JOptionPane.showMessageDialog(this,
                     "Failed to register new user",
@@ -97,7 +96,7 @@ public class RegistrationForm extends JDialog{
     public User user;
     private User addUserToDatabase(String name, String email, String phone, String address, String  password){
         User user = null;
-        final String DB_URL = "jdbc:mysql://localhost/auth_db";
+        final String DB_URL = "jdbc:mysql://localhost/gestion_cites";
         final String USERNAME = "root";
         final String PASSWORD = "";
 
@@ -136,18 +135,7 @@ public class RegistrationForm extends JDialog{
         RegistrationForm myForm = new RegistrationForm(null);
         User user = myForm.user;
         if (user != null){
-            LoginForm loginForm = new LoginForm(null);
-            User user1 = loginForm.user;
-            if (user != null){
-                System.out.println("Successful Authentication of : " + user.name);
-                System.out.println("        Email : " + user1.email);
-                System.out.println("        Phone : " + user1.phone);
-                System.out.println("        Address : " + user1.address);
-            }
-            else{
-                System.out.println("Authentication canceled");
-            }
-            System.out.println("Successful registration of : " + user1.name);
+            System.out.println("Successful registration of : " + user.name);
         }else{
             System.out.println("Resgistration canceled");
         }
