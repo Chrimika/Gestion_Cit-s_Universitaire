@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.Scanner;
 
 import Login.Batiment;
-import Login.Chambre;
+import Login.Chambres;
 import Login.Lit;
 import Login.User;
 
@@ -36,6 +36,7 @@ public class LoginForm extends JDialog{
                 user = getAuthenticatedUser(email, password);
                 if (user != null){
                     dispose();
+                    Menu menu = new Menu(null);
                 }
                 else{
                     JOptionPane.showMessageDialog(LoginForm.this,
@@ -146,7 +147,7 @@ public class LoginForm extends JDialog{
             case 3:
                 do{
                     System.out.println("Enregistrer Lits");
-                    Chambre.AjoutLit();
+                    Chambres.AjoutLit();
                     System.out.println("Re-enregistrer ? :\n" +
                             "1 - oui\n" +
                             "0 - non\n");
@@ -189,7 +190,7 @@ public class LoginForm extends JDialog{
             case 2:
                 do{
                     System.out.println("Affichage Chambre");
-                    Chambre.AfficherChambre();
+                    Chambres.AfficherChambre();
                     System.out.println("Voulez vous recomencer ? :\n" +
                             "1 - oui\n" +
                             "0 - non\n");
@@ -242,7 +243,7 @@ public class LoginForm extends JDialog{
             case 2:
                 do{
                     System.out.println("Suppresion Lit");
-                    Chambre.SupprimerLit();
+                    Chambres.SupprimerLit();
                     System.out.println("Voulez vous recomencer ? :\n" +
                             "1 - oui\n" +
                             "0 - non\n");
@@ -257,6 +258,10 @@ public class LoginForm extends JDialog{
                 System.out.println("choix non pris en compte");
                 LoginForm.consultations();
         }
+    }
+
+    public User currentUser(){
+        return this.user;
     }
 
     public static void Affectation(){
@@ -298,6 +303,7 @@ public class LoginForm extends JDialog{
                     System.out.println("Choix non pris en compte reccomencez");
                     LoginForm.mains();
             }
+
         }
         else{
             System.out.println("Authentication canceled");
@@ -305,6 +311,6 @@ public class LoginForm extends JDialog{
     }
 
     public static void main(String[] args) {
-        mains();
+        LoginForm loginForm = new LoginForm(null);
     }
 }
